@@ -33,7 +33,21 @@ namespace ISIP224_Hazov
                 Quantity = quantity;
                 Category = category;
             }
+
+            public void PrintInfo()
+            {
+                string status = IsInStock ? "В наличии" : "Нет в наличии";
+                Console.WriteLine($"Код: {Id}");
+                Console.WriteLine($"Название: {Name}");
+                Console.WriteLine($"Категория: {Category}");
+                Console.WriteLine($"Цена: {Price:C}");
+                Console.WriteLine($"Количество: {Quantity} шт. ({status})");
+            }
         }
+
+            static List<Product> products = new List<Product>();
+            static int nextId = 1;
+        
         static void Main(string[] args)
         {
         }
