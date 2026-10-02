@@ -81,6 +81,20 @@ namespace ISIP224_Hazov
                 stats.ShortestWord = "Нет слов";
                 stats.LongestWord = "Нет слов";
             }
+
+            int sentenceCount = 0;
+            foreach (char c in text)
+            {
+                if (c == '.' || c == '!' || c == '?')
+                {
+                    sentenceCount++;
+                }
+            }
+            if (sentenceCount == 0 && words.Length > 0)
+            {
+                sentenceCount = 1;
+            }
+            stats.SentenceCount = sentenceCount;
         }
     }
 }
