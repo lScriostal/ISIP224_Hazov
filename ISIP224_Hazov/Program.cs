@@ -30,15 +30,18 @@ namespace ISIP224_Hazov
         {
             while (true)
             {
-                Console.WriteLine("Введите текст состоящий из 100 симоволов: ");
+                Console.WriteLine("Введите текст состоящий из 100 симоволов (или 'exit' для выхода): ");
                 string input = Console.ReadLine();
+                if (input.ToLower() == "exit")
+                    break;
                 if (input.Length < 100)
                 {
                     Console.WriteLine($"Ошибка! Текст должен содержать минимум 100 символов. Вы ввели {input.Length} символов");
+                    continue;
                 }
                 TextStatistics stats = AnalyzeText(input);
                 history.Add(stats);
-                PrintStatics(stats);
+                PrintStatistics(stats);
                 Console.WriteLine("Хотите вывести статитсику по прошлам текстам? (y/n)");
                 if (Console.ReadLine().ToLower() == "y")
                 {
@@ -100,7 +103,7 @@ namespace ISIP224_Hazov
             int consonants = 0;
             string vowelsList = "аеёиоуыэюя";
             string consonantsList = "бвгджзйклмнпрстфхцчшщ";
-            foreach (char c int text.ToLower())
+            foreach (char c in text.ToLower())
             {
                 if (char.IsLetter(c))
                 {
@@ -137,7 +140,7 @@ namespace ISIP224_Hazov
             Console.WriteLine($"Количество согласных букв: {stats.ConsonantCount}");
             Console.WriteLine("Частота встречаемости букв: ");
             List<KeyValuePair<char, int>> sortedFreq = new List<KeyValuePair<char, int>>(stats.LetterFrequency);
-            sortedFreq.Sort ((pair1, pair2)) => pair2.Value.CompareTo(pair1.Value);
+            sortedFreq.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
             foreach (var pair in sortedFreq)
             {
                 Console.WriteLine($"'{pair.Key}': {pair.Value}");
