@@ -95,6 +95,41 @@ namespace ISIP224_Hazov
                 sentenceCount = 1;
             }
             stats.SentenceCount = sentenceCount;
+
+            int vowels = 0;
+            int consonants = 0;
+            string vowelsList = "аеёиоуыэюя";
+            string consonantsList = "бвгджзйклмнпрстфхцчшщ";
+            foreach (char c int text.ToLower())
+            {
+                if (char.IsLetter(c))
+                {
+                    if (vowelsList.IndexOf(c) >= 0)
+                    {
+                        vowels++;
+                    }
+                    else if (consonantsList.IndexOf(c) >= 0)
+                    {
+                        consonants++;
+                    }
+
+                    if (stats.LetterFrequency.ContainsKey(c))
+                    {
+                        stats.LetterFrequency[c]++;
+                    }
+                    else
+                    {
+                        stats.LetterFrequency.Add(c, 1);
+                    }
+                }
+            }
+            stats.VowelCount = vowels;
+            stats.ConsonantCount = consonants;
+            return stats;
+        }
+        static void PrintStatistics(TextStatistics stats)
+        {
+
         }
     }
 }
