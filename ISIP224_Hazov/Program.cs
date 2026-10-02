@@ -129,7 +129,34 @@ namespace ISIP224_Hazov
         }
         static void PrintStatistics(TextStatistics stats)
         {
+            Console.WriteLine($"Количество слов: {stats.WordCount}");
+            Console.WriteLine($"Количество предложений: {stats.SentenceCount}");
+            Console.WriteLine($"Самое короткое слово: {stats.ShortestWord}");
+            Console.WriteLine($"Самое длинное слово: {stats.LongestWord}");
+            Console.WriteLine($"Количество гласных букв: {stats.VowelCount}");
+            Console.WriteLine($"Количество согласных букв: {stats.ConsonantCount}");
+            Console.WriteLine("Частота встречаемости букв: ");
+            List<KeyValuePair<char, int>> sortedFreq = new List<KeyValuePair<char, int>>(stats.LetterFrequency);
+            sortedFreq.Sort ((pair1, pair2)) => pair2.Value.CompareTo(pair1.Value);
+            foreach (var pair in sortedFreq)
+            {
+                Console.WriteLine($"'{pair.Key}': {pair.Value}");
+            }
+        }
 
+        static void PrintHistory()
+        {
+            Console.WriteLine("\n=== История всех текстов ===");
+            if (history.Count == 0)
+            {
+                Console.WriteLine("История пуста.");
+                return;
+            }
+            for (int i = 0; i < history.Count; i++)
+            {
+                Console.WriteLine($"\n--- Текст #{i + 1} ---");
+                Console.WriteLine($"Слов: {history[i].WordCount}, Предложений: {history[i].SentenceCount}");
+            }
         }
     }
 }
