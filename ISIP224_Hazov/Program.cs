@@ -45,7 +45,7 @@ namespace ISIP224_Hazov
             books.Add(new Book { Id = nextId++, Title = "Краткая история времени", Author = "Стивен Хокинг", Genre = Genre.NonFiction, Year = 1988, Price = 1200 });
 
             bool exit = false;
-            while (exit) 
+            while (!exit) 
             {
                 Console.WriteLine("\n--- Меню ---");
                 Console.WriteLine("1. Добавить книгу");
@@ -154,7 +154,7 @@ namespace ISIP224_Hazov
 
             if (results.Any())
             {
-                Console.WriteLine("Резульаты поиска: ");
+                Console.WriteLine("Результаты поиска: ");
                 foreach (var book in results) {
                     Console.WriteLine(book);
                 }
