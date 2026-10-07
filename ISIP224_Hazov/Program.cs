@@ -138,6 +138,90 @@ namespace ISIP224_Hazov
                 case "1": 
                     string TitleQuery = ReadNonEmptyString("Введите название (или часть): ");
                     results = books.Where(b => b.Title.ToLower().Contains(TitleQuery.ToLower())).ToList();
+                    break;
+                case "2":
+                    string AuthorQuery = ReadNonEmptyString("Введите автора (или часть): ");
+                    results = books.Where(b => b.Author.ToLower().Contains(AuthorQuery.ToLower())).ToList();
+                    break;
+                case "3":
+                    Genre genreQuere = ReadGenre();
+                    results = books.Where(b => b.Genre == genreQuere).ToList();
+                    break;
+                default:
+                    Console.WriteLine("Неверный выбор.");
+                    return;
+            }
+
+            if (results.Any())
+            {
+                Console.WriteLine("Резульаты поиска: ");
+                foreach (var book in results) {
+                    Console.WriteLine(book);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Книги не найдены.");
+            }
+        }
+
+        static void SortByTitle()
+        {
+            Console.WriteLine("\n--- Книги, отсортированные по названию ---");
+            var sorted = books.OrderBy(b => b.Title).ToList();
+            PrintBooks(sorted);
+        }
+
+        static void SortByYear()
+        {
+            Console.WriteLine("\n--- Книги, отсортированные по году ---");
+            var sorted = books.OrderBy(b => b.Year).ToList();
+            PrintBooks(sorted);
+        }
+
+        static void ShowMostExpensiveAndCheapest()
+        {
+            if (!books.Any())
+            {
+                Console.WriteLine("Список книг пуст.");
+                return;
+            }
+            Console.WriteLine("\n--- Самая дорогая книга ---");
+            var mostExpensive = books.OrderByDescending(b => b.Price).First();
+            Console.WriteLine(mostExpensive);
+
+            Console.WriteLine("\n--- Самая дешёвая книга ---");
+            var cheapest = books.OrderBy(b => b.Price).First();
+            Console.WriteLine(cheapest);
+        }
+
+        static void GroupByAuthor()
+        {
+            Console.WriteLine("\n--- Количество книг по авторам ---");
+            var grouped = books.GroupBy(b => b.Author).Select(g => new { Author = g.Key, Count = g.Count() }).OrderBy(g => g.Author);
+            foreach (var group in grouped)
+            {
+                Console.WriteLine($"Автор: {group.Author} | Количество книг: {group.Count}");
+            }
+        }
+
+        static void ShowAllBooks()
+        {
+            Console.WriteLine("\n--- Все книги ---");
+            PrintBooks(books);
+        }
+
+        static void PrintBooks(List<Book> list)
+        {
+            if (!list.Any())
+            {
+                Console.WriteLine("Список книг пуст.");
+                return;
+            }
+
+            foreach (var book in list)
+            {
+                Console.WriteLine(book);
             }
         }
 
@@ -151,7 +235,7 @@ namespace ISIP224_Hazov
                 {
                     return input.Trim();
                 }
-                Console.WriteLine("Ошибка: строка не может быть пустой. Попробуйте снова.")
+                Console.WriteLine("Ошибка: строка не может быть пустой. Попробуйте снова.");
             }
         }
 
