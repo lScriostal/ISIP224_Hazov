@@ -199,7 +199,7 @@ namespace ISIP224_Hazov
                     else
                     {
                         Console.WriteLine("На вас напал враг!");
-                        Enemy enemy = CreateRandomEnemy();
+                        Enemy enemy = GenerateRandomEnemy();
                         StartBattle(player, enemy);
                     }
                 }
@@ -307,7 +307,38 @@ namespace ISIP224_Hazov
             enemy.PerformSpecialAbility(player, ref damage);
             player.Health -= damage;
             Console.WriteLine($"{enemy.Name} атаковал вас и нанёс {damage} урона!");
-
+        }
+        static void OpenChest(Player player)
+        {
+            int itemType = rnd.Next(1, 4);
+            if (itemType == 1)
+            {
+                Potion potion = new Potion();
+                potion.ShowStats();
+                player.HealFull();
+            }
+            else if (itemType == 2) 
+            {
+                Weapon newWeapon = new Weapon($"Меч урона {rnd.Next(3, 8)}", rnd.Next(3, 8));
+                Console.WriteLine("\nВы нашли:");
+                newWeapon.ShowStats();
+                Console.WriteLine("Текущее оружие: ");
+                if (player.EquippedWeapon != null) player.EquippedWeapon.ShowStats();
+                else Console.WriteLine("Пусто");
+                Console.WriteLine("Взять новый предмет? (1 - Да, 2 - Нет)");
+                if (Console.ReadLine() == "1") player.EquippedWeapon = newWeapon;
+            }
+            else
+            {
+                Armor newArmor = new Armor($"Броня защиты {rnd.Next(2, 6)}", rnd.Next(2, 6));
+                Console.WriteLine("\nВы нашли:");
+                newArmor.ShowStats();
+                Console.WriteLine("Текущий доспех: ");
+                if (player.EquippedArmor != null) player.EquippedArmor.ShowStats();
+                else Console.WriteLine("Пусто");
+                Console.WriteLine("Взять новый предмет? (1 - Да, 2 - Нет)");
+                if (Console.ReadLine() == "1") player.EquippedArmor = newArmor;
+            }
         }
     }
 }
